@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from mcp.server import MCPServer
+from mcp.server.fastmcp import FastMCP
 
 
-mcp = MCPServer("Local File Server")
+mcp = FastMCP("Local File Server")
 
 WORKSPACE = Path(__file__).parent / "workspace"
 
@@ -25,7 +25,6 @@ def read_file(filename: str) -> str:
 
     file_path = (WORKSPACE / filename).resolve()
 
-    # جلوگیری از دسترسی خارج از workspace
     if WORKSPACE.resolve() not in file_path.parents:
         raise ValueError("Access denied")
 
@@ -49,9 +48,7 @@ def search_in_files(keyword: str) -> list[str]:
             continue
 
         try:
-            content = file_path.read_text(
-                encoding="utf-8"
-            )
+            content = file_path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
 
