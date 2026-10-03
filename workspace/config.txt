@@ -1,0 +1,3 @@
+APP_NAME=MCP Demo
+DATABASE=sqlite
+ENVIRONMENT=development
