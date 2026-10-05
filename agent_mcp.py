@@ -35,14 +35,17 @@ async def main():
 
     # درخواست کاربر
     result = await agent.ainvoke({
-        "messages": [
-            {
-                "role": "user",
-                "content": "Which file is talking about database?"
-            }
-        ]
-    })
-
+    "messages": [
+        {
+            "role": "user",
+            "content": """
+                List all attachments of the page "R&D" in the "kimia" space.
+                Return only the exact file names returned by the tool.
+                Do not invent anything.
+            """
+        }
+    ]
+})
     print("\nAnswer:")
     print(result["messages"][-1].content)
 
@@ -53,6 +56,13 @@ async def main():
         print("TYPE:", type(message))
         print("CONTENT:", message.content)
         print("TOOL CALLS:", getattr(message, "tool_calls", None))
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     asyncio.run(main())
